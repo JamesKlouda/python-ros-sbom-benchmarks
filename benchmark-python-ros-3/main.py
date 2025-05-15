@@ -79,6 +79,14 @@ def parse_with_beautifulsoup():
         print(f"Error parsing with BeautifulSoup: {e}")
         return False
 
+def standardize_package_name(name):
+    """Standardize package name to use hyphens and proper format."""
+    # Convert dots to hyphens
+    name = name.replace('.', '-')
+    # Ensure the name is lowercase
+    name = name.lower()
+    return name
+
 def get_pip_freeze_packages():
     """Get all installed packages using pip freeze."""
     result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True)
@@ -86,7 +94,9 @@ def get_pip_freeze_packages():
     for line in result.stdout.splitlines():
         if '==' in line:
             name, version = line.split('==')
-            packages[name.lower()] = version
+            # Standardize the package name
+            name = standardize_package_name(name)
+            packages[name] = version
     return packages
 
 def get_poetry_dependencies():
@@ -99,21 +109,23 @@ def get_poetry_dependencies():
             if 'tool' in pyproject and 'poetry' in pyproject['tool']:
                 poetry = pyproject['tool']['poetry']
                 if 'dependencies' in poetry:
-                    deps.update(poetry['dependencies'])
+                    for name, version in poetry['dependencies'].items():
+                        deps[standardize_package_name(name)] = version
                 if 'dev-dependencies' in poetry:
-                    deps.update(poetry['dev-dependencies'])
+                    for name, version in poetry['dev-dependencies'].items():
+                        deps[standardize_package_name(name)] = version
             # Check for PEP 621 format
             elif 'project' in pyproject and 'dependencies' in pyproject['project']:
                 for dep in pyproject['project']['dependencies']:
                     # Parse the dependency string (e.g., "beautifulsoup4>=4.12.0")
                     if '>=' in dep:
                         name, version = dep.split('>=')
-                        deps[name.strip()] = version.strip()
+                        deps[standardize_package_name(name.strip())] = version.strip()
                     elif '==' in dep:
                         name, version = dep.split('==')
-                        deps[name.strip()] = version.strip()
+                        deps[standardize_package_name(name.strip())] = version.strip()
                     else:
-                        deps[dep.strip()] = None
+                        deps[standardize_package_name(dep.strip())] = None
     except FileNotFoundError:
         pass
     
@@ -122,7 +134,7 @@ def get_poetry_dependencies():
             lock = toml.load(f)
             if 'package' in lock:
                 for pkg in lock['package']:
-                    deps[pkg['name']] = pkg['version']
+                    deps[standardize_package_name(pkg['name'])] = pkg['version']
     except FileNotFoundError:
         pass
     
@@ -134,7 +146,7 @@ def get_installed_packages():
     
     # Get packages from importlib.metadata
     for dist in distributions():
-        name = dist.metadata["Name"].lower()
+        name = standardize_package_name(dist.metadata["Name"])
         version = dist.version
         requires = []
         
@@ -144,13 +156,13 @@ def get_installed_packages():
                 try:
                     req_obj = Requirement(req)
                     requires.append({
-                        "name": req_obj.name,
+                        "name": standardize_package_name(req_obj.name),
                         "specifier": str(req_obj.specifier) if req_obj.specifier else None,
                         "marker": str(req_obj.marker) if req_obj.marker else None
                     })
                 except Exception:
                     # If parsing fails, add the raw requirement
-                    requires.append({"name": req, "specifier": None, "marker": None})
+                    requires.append({"name": standardize_package_name(req), "specifier": None, "marker": None})
         
         packages[name] = {
             "version": version,
@@ -217,7 +229,7 @@ def generate_sbom():
     # Read project info from pyproject.toml
     with open('pyproject.toml', 'r') as f:
         pyproject = toml.load(f)
-        project_name = pyproject.get('tool', {}).get('poetry', {}).get('name', 'benchmark-python-ros-3')
+        project_name = standardize_package_name(pyproject.get('tool', {}).get('poetry', {}).get('name', 'benchmark-python-ros-3'))
         project_version = pyproject.get('tool', {}).get('poetry', {}).get('version', '0.1.0')
     
     # Generate a unique serial number
@@ -262,13 +274,15 @@ def generate_sbom():
         if name.lower() == "python":
             continue
         
-        bom_ref = f"pkg:pypi/{name}@{info['version']}"
+        # Remove pkg:pypi/ prefix if present
+        clean_name = name.replace('pkg:pypi/', '')
+        bom_ref = f"pkg:pypi/{clean_name}@{info['version']}"
         component = {
             "bom-ref": bom_ref,
             "type": "library",
-            "name": name,
+            "name": clean_name,
             "version": info["version"],
-            "purl": f"pkg:pypi/{name}@{info['version']}",
+            "purl": bom_ref,
             "properties": [
                 {
                     "name": "source",
