@@ -4,14 +4,14 @@ version = "0.1.0"
 description = "Web scraping benchmark with BeautifulSoup, Scrapy, and requests"
 requires-python = ">=3.9"
 dependencies = [
-    "beautifulsoup4==4.12.0",
+    "beautifulsoup4==4.12.2",
     "scrapy==2.11.0",
     "requests==2.31.0",
-    "lxml==4.9.0",
-    "selenium==4.15.0",
-    "pandas==2.1.0",
-    "numpy==1.24.0",
-    "aiohttp==3.9.0",
+    "lxml==4.9.3",
+    "selenium==4.15.2",
+    "pandas==2.1.3",
+    "numpy==1.24.3",
+    "aiohttp==3.9.1",
     "playwright==1.40.0",
     "rospkg==1.5.0",
     "catkin-pkg==0.5.2"
