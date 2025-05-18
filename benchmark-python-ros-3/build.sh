@@ -12,6 +12,10 @@ fi
 # Activate virtual environment
 source .venv/bin/activate
 
+# Run poetry lock
+echo "Running poetry lock..."
+poetry lock
+
 # Install pip-tools
 pip install pip-tools
 
