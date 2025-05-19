@@ -196,8 +196,8 @@ def generate_sbom():
     # Read project info from pyproject.toml
     with open('pyproject.toml', 'r') as f:
         pyproject = toml.load(f)
-        project_name = standardize_package_name(pyproject.get('project', {}).get('name', 'benchmark-python-ros-1'))
-        project_version = pyproject.get('project', {}).get('version', '0.1.0')
+        project_name = standardize_package_name(pyproject.get('tool', {}).get('poetry', {}).get('name', 'benchmark-python-ros-1'))
+        project_version = pyproject.get('tool', {}).get('poetry', {}).get('version', '0.1.0')
     
     # Generate a unique serial number
     serial_number = f"urn:uuid:{uuid.uuid4()}"
@@ -215,28 +215,41 @@ def generate_sbom():
             "tools": {
                 "components": [
                     {
-                        "vendor": "Custom",
-                        "name": "Python SBOM Generator",
-                        "version": "1.0.0"
+                        "bom-ref": "pkg:pypi/pip@25.1.1",
+                        "type": "application",
+                        "name": "pip",
+                        "version": "25.1.1",
+                        "purl": "pkg:pypi/pip@25.1.1"
                     }
                 ]
             },
             "component": {
+                "bom-ref": f"pkg:pypi/{project_name}@{project_version}",
                 "type": "application",
                 "name": project_name,
-                "version": project_version
+                "version": project_version,
+                "purl": f"pkg:pypi/{project_name}@{project_version}"
             }
         },
-        "components": []
+        "components": [],
+        "dependencies": []
     }
     
     # Add components
     for name, info in packages.items():
+        # Skip Python as a component since it's not a PyPI package
+        if name.lower() == "python":
+            continue
+        
+        # Remove pkg:pypi/ prefix if present
+        clean_name = name.replace('pkg:pypi/', '')
+        bom_ref = f"pkg:pypi/{clean_name}@{info['version']}"
         component = {
+            "bom-ref": bom_ref,
             "type": "library",
-            "name": name,
+            "name": clean_name,
             "version": info["version"],
-            "purl": f"pkg:pypi/{name}@{info['version']}",
+            "purl": bom_ref,
             "properties": [
                 {
                     "name": "source",
@@ -244,12 +257,58 @@ def generate_sbom():
                 }
             ]
         }
-        
-        # Add dependencies
-        if name in transitive_deps:
-            component["dependencies"] = list(transitive_deps[name])
-        
         sbom["components"].append(component)
+    
+    # Find direct dependencies of the main application (from pyproject.toml)
+    direct_deps = []
+    try:
+        with open('pyproject.toml', 'r') as f:
+            pyproject = toml.load(f)
+            # Check for Poetry format
+            if 'tool' in pyproject and 'poetry' in pyproject['tool']:
+                poetry = pyproject['tool']['poetry']
+                deps = poetry.get('dependencies', {})
+                for dep in deps:
+                    dep_name = dep.lower()
+                    if dep_name != "python" and dep_name in packages:
+                        direct_deps.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
+            # Check for PEP 621 format
+            elif 'project' in pyproject and 'dependencies' in pyproject['project']:
+                for dep in pyproject['project']['dependencies']:
+                    # Parse the dependency string
+                    if '>=' in dep:
+                        dep_name = dep.split('>=')[0].strip().lower()
+                    elif '==' in dep:
+                        dep_name = dep.split('==')[0].strip().lower()
+                    else:
+                        dep_name = dep.strip().lower()
+                    
+                    if dep_name != "python" and dep_name in packages:
+                        direct_deps.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
+    except Exception as e:
+        print(f"Error reading dependencies: {e}")
+        pass
+    
+    sbom["dependencies"].append({
+        "ref": f"pkg:pypi/{project_name}@{project_version}",
+        "dependsOn": direct_deps
+    })
+    
+    # Add dependencies including transitive ones (for all other packages)
+    for name, deps in transitive_deps.items():
+        if deps:
+            # Don't duplicate the main application
+            if name == project_name:
+                continue
+            depends_on = []
+            for dep_name in deps:
+                if dep_name in packages and dep_name.lower() != "python":
+                    depends_on.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
+            if depends_on:
+                sbom["dependencies"].append({
+                    "ref": f"pkg:pypi/{name}@{packages[name]['version']}",
+                    "dependsOn": depends_on
+                })
     
     return sbom
 
@@ -267,7 +326,7 @@ def main():
     parse_with_beautifulsoup()
     
     # Generate SBOM
-    print("Generating SBOM...")
+    print("\nGenerating SBOM...")
     sbom = generate_sbom()
     
     # Save SBOM to file
@@ -275,7 +334,7 @@ def main():
     with open(output_file, 'w') as f:
         json.dump(sbom, f, indent=2)
     
-    print(f"SBOM generated and saved to {output_file}")
+    print(f"SBOM generated as {output_file}")
 
 if __name__ == "__main__":
     main() 
