@@ -202,21 +202,25 @@ def generate_sbom():
     # Generate a unique serial number
     serial_number = f"urn:uuid:{uuid.uuid4()}"
     
-    # Create the SBOM structure
+    # Get current timestamp in ISO 8601 format
+    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    
     sbom = {
         "bomFormat": "CycloneDX",
-        "specVersion": "1.4",
+        "specVersion": "1.5",
         "serialNumber": serial_number,
         "version": 1,
         "metadata": {
-            "timestamp": datetime.utcnow().isoformat() + "Z",
-            "tools": [
-                {
-                    "vendor": "Custom",
-                    "name": "Python SBOM Generator",
-                    "version": "1.0.0"
-                }
-            ],
+            "timestamp": timestamp,
+            "tools": {
+                "components": [
+                    {
+                        "vendor": "Custom",
+                        "name": "Python SBOM Generator",
+                        "version": "1.0.0"
+                    }
+                ]
+            },
             "component": {
                 "type": "application",
                 "name": project_name,

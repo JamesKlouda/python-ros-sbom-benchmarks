@@ -1,45 +1,40 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:a1f08352-a981-497a-a678-504e861a8c59",
+  "serialNumber": "urn:uuid:d84cfae7-a195-4456-99b2-397d3f1561b9",
   "version": 1,
   "metadata": {
-    "timestamp": "2025-05-15T12:27:35Z",
+    "timestamp": "2025-05-19T13:06:21Z",
     "tools": {
       "components": [
         {
-          "bom-ref": "pkg:pypi/pip@25.1.1",
-          "type": "application",
-          "name": "pip",
-          "version": "25.1.1",
-          "purl": "pkg:pypi/pip@25.1.1"
+          "vendor": "Custom",
+          "name": "Python SBOM Generator",
+          "version": "1.0.0"
         }
       ]
     },
     "component": {
-      "bom-ref": "pkg:pypi/benchmark-python-ros-1@0.1.0",
       "type": "application",
       "name": "benchmark-python-ros-1",
-      "version": "0.1.0",
-      "purl": "pkg:pypi/benchmark-python-ros-1@0.1.0"
+      "version": "0.1.0"
     }
   },
   "components": [
     {
-      "bom-ref": "pkg:pypi/cryptography@44.0.3",
       "type": "library",
-      "name": "cryptography",
-      "version": "44.0.3",
-      "purl": "pkg:pypi/cryptography@44.0.3",
+      "name": "soupsieve",
+      "version": "2.7",
+      "purl": "pkg:pypi/soupsieve@2.7",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/pip-tools@7.4.1",
       "type": "library",
       "name": "pip-tools",
       "version": "7.4.1",
@@ -49,23 +44,71 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "packaging",
+        "pip",
+        "paver",
+        "typing-extensions",
+        "pytest-virtualenv",
+        "jaraco-tidelift",
+        "colorama",
+        "flit-core",
+        "furo",
+        "click",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "mock",
+        "wheel",
+        "tomli-w",
+        "mypy",
+        "sphinx-argparse-cli",
+        "pytest-rerunfailures",
+        "pygments-github-lexers",
+        "pytest-cov",
+        "pytest-mypy",
+        "jaraco-path",
+        "poetry-core",
+        "setuptools",
+        "pytest-mock",
+        "pyproject_hooks",
+        "sphinxcontrib-towncrier",
+        "tomli",
+        "rst-linker",
+        "sphinx-inline-tabs",
+        "pytest",
+        "uv",
+        "flake8-2020",
+        "filelock",
+        "sphinx-autodoc-typehints",
+        "jaraco-envs",
+        "jaraco-packaging",
+        "virtualenv",
+        "sphinx",
+        "sphinx-issues",
+        "importlib-metadata",
+        "pytest-xdist",
+        "pytest-black",
+        "covdefaults",
+        "pytest-enabler",
+        "build",
+        "pyproject-hooks"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/tomli@2.0.1",
       "type": "library",
       "name": "tomli",
-      "version": "2.0.1",
-      "purl": "pkg:pypi/tomli@2.0.1",
+      "version": "2.2.1",
+      "purl": "pkg:pypi/tomli@2.2.1",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/idna@3.10",
       "type": "library",
       "name": "idna",
       "version": "3.10",
@@ -75,36 +118,28 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "ruff",
+        "mypy",
+        "flake8",
+        "pytest"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/autobahn@24.4.2",
       "type": "library",
-      "name": "autobahn",
-      "version": "24.4.2",
-      "purl": "pkg:pypi/autobahn@24.4.2",
+      "name": "pytz",
+      "version": "2025.2",
+      "purl": "pkg:pypi/pytz@2025.2",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/zope.interface@7.2",
-      "type": "library",
-      "name": "zope.interface",
-      "version": "7.2",
-      "purl": "pkg:pypi/zope.interface@7.2",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/toml@0.10.2",
       "type": "library",
       "name": "toml",
       "version": "0.10.2",
@@ -114,23 +149,65 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/zipp@3.19.2",
       "type": "library",
       "name": "zipp",
-      "version": "3.19.2",
-      "purl": "pkg:pypi/zipp@3.19.2",
+      "version": "3.21.0",
+      "purl": "pkg:pypi/zipp@3.21.0",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "pytest-ignore-flaky",
+        "jaraco-functools",
+        "jaraco-tidelift",
+        "jaraco-test",
+        "importlib-resources",
+        "furo",
+        "sphinx-lint",
+        "pytest-checkdocs",
+        "pytest-cov",
+        "pytest-mypy",
+        "pytest-ruff",
+        "rst-linker",
+        "more-itertools",
+        "pytest",
+        "big-o",
+        "jaraco-packaging",
+        "sphinx",
+        "jaraco-itertools",
+        "pytest-enabler"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/pip@25.1.1",
+      "type": "library",
+      "name": "yarl",
+      "version": "1.20.0",
+      "purl": "pkg:pypi/yarl@1.20.0",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": [
+        "ruff",
+        "idna",
+        "typing-extensions",
+        "propcache",
+        "multidict",
+        "mypy",
+        "flake8",
+        "pytest"
+      ]
+    },
+    {
       "type": "library",
       "name": "pip",
       "version": "25.1.1",
@@ -140,10 +217,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/catkin-pkg@0.5.2",
       "type": "library",
       "name": "catkin-pkg",
       "version": "0.5.2",
@@ -153,10 +230,54 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "flake8-deprecated",
+        "flake8-blind-except",
+        "pip",
+        "paver",
+        "pytest-virtualenv",
+        "jaraco-tidelift",
+        "docutils",
+        "furo",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "mock",
+        "wheel",
+        "pygments-github-lexers",
+        "pytest-mypy",
+        "railroad-diagrams",
+        "pytest-cov",
+        "jaraco-path",
+        "flake8-class-newline",
+        "six",
+        "setuptools",
+        "pyparsing",
+        "flake8",
+        "flake8-docstrings",
+        "sphinxcontrib-towncrier",
+        "rst-linker",
+        "flake8-import-order",
+        "sphinx-inline-tabs",
+        "pytest",
+        "python-dateutil",
+        "flake8-2020",
+        "jaraco-envs",
+        "flake8-comprehensions",
+        "jaraco-packaging",
+        "virtualenv",
+        "sphinx",
+        "pytest-xdist",
+        "pytest-black",
+        "flake8-quotes",
+        "babel",
+        "markupsafe",
+        "flake8-builtins",
+        "pytest-enabler",
+        "jinja2"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/attrs@25.3.0",
       "type": "library",
       "name": "attrs",
       "version": "25.3.0",
@@ -166,10 +287,41 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "cloudpickle",
+        "coverage",
+        "cogapp",
+        "furo",
+        "sphinx",
+        "mypy",
+        "myst-parser",
+        "sphinxcontrib-towncrier",
+        "pytest-codspeed",
+        "hypothesis",
+        "pytest-xdist",
+        "pympler",
+        "sphinx-notfound-page",
+        "pytest",
+        "pytest-mypy-plugins",
+        "towncrier",
+        "pre-commit-uv"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/pyparsing@3.2.3",
+      "type": "library",
+      "name": "frozenlist",
+      "version": "1.6.0",
+      "purl": "pkg:pypi/frozenlist@1.6.0",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": []
+    },
+    {
       "type": "library",
       "name": "pyparsing",
       "version": "3.2.3",
@@ -179,23 +331,15 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "railroad-diagrams",
+        "jinja2",
+        "babel",
+        "markupsafe"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/hyperlink@21.0.0",
-      "type": "library",
-      "name": "hyperlink",
-      "version": "21.0.0",
-      "purl": "pkg:pypi/hyperlink@21.0.0",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/charset-normalizer@3.4.2",
       "type": "library",
       "name": "charset-normalizer",
       "version": "3.4.2",
@@ -205,10 +349,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/itsdangerous@2.2.0",
       "type": "library",
       "name": "itsdangerous",
       "version": "2.2.0",
@@ -218,10 +362,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/click@8.1.8",
       "type": "library",
       "name": "click",
       "version": "8.1.8",
@@ -231,75 +375,67 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "colorama",
+        "importlib-metadata"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/twisted@24.11.0",
       "type": "library",
-      "name": "twisted",
-      "version": "24.11.0",
-      "purl": "pkg:pypi/twisted@24.11.0",
+      "name": "tzdata",
+      "version": "2025.2",
+      "purl": "pkg:pypi/tzdata@2025.2",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/typing_extensions@4.12.2",
+      "type": "library",
+      "name": "numpy",
+      "version": "1.26.4",
+      "purl": "pkg:pypi/numpy@1.26.4",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": []
+    },
+    {
       "type": "library",
       "name": "typing_extensions",
-      "version": "4.12.2",
-      "purl": "pkg:pypi/typing_extensions@4.12.2",
+      "version": "4.13.2",
+      "purl": "pkg:pypi/typing_extensions@4.13.2",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/txaio@23.1.1",
       "type": "library",
-      "name": "txaio",
-      "version": "23.1.1",
-      "purl": "pkg:pypi/txaio@23.1.1",
+      "name": "async-timeout",
+      "version": "4.0.3",
+      "purl": "pkg:pypi/async-timeout@4.0.3",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "typing-extensions"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/cffi@1.17.1",
-      "type": "library",
-      "name": "cffi",
-      "version": "1.17.1",
-      "purl": "pkg:pypi/cffi@1.17.1",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/constantly@23.10.4",
-      "type": "library",
-      "name": "constantly",
-      "version": "23.10.4",
-      "purl": "pkg:pypi/constantly@23.10.4",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/werkzeug@3.1.3",
       "type": "library",
       "name": "werkzeug",
       "version": "3.1.3",
@@ -309,10 +445,13 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "watchdog",
+        "markupsafe"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/certifi@2025.4.26",
       "type": "library",
       "name": "certifi",
       "version": "2025.4.26",
@@ -322,10 +461,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/requests@2.31.0",
       "type": "library",
       "name": "requests",
       "version": "2.31.0",
@@ -335,10 +474,25 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "ruff",
+        "charset-normalizer",
+        "zstandard",
+        "h2",
+        "certifi",
+        "mypy",
+        "flake8",
+        "pysocks",
+        "idna",
+        "urllib3",
+        "brotli",
+        "pytest",
+        "brotlicffi",
+        "chardet"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/python-dateutil@2.9.0.post0",
       "type": "library",
       "name": "python-dateutil",
       "version": "2.9.0.post0",
@@ -348,10 +502,12 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "six"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/build@1.2.2.post1",
       "type": "library",
       "name": "build",
       "version": "1.2.2.post1",
@@ -361,49 +517,82 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "packaging",
+        "pip",
+        "paver",
+        "typing-extensions",
+        "pytest-virtualenv",
+        "jaraco-tidelift",
+        "colorama",
+        "furo",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "mock",
+        "wheel",
+        "mypy",
+        "sphinx-argparse-cli",
+        "pytest-rerunfailures",
+        "pygments-github-lexers",
+        "pytest-cov",
+        "pytest-mypy",
+        "jaraco-path",
+        "setuptools",
+        "pytest-mock",
+        "pyproject_hooks",
+        "sphinxcontrib-towncrier",
+        "tomli",
+        "rst-linker",
+        "sphinx-inline-tabs",
+        "pytest",
+        "uv",
+        "flake8-2020",
+        "filelock",
+        "sphinx-autodoc-typehints",
+        "jaraco-envs",
+        "jaraco-packaging",
+        "virtualenv",
+        "sphinx",
+        "sphinx-issues",
+        "importlib-metadata",
+        "pytest-xdist",
+        "pytest-black",
+        "pytest-enabler",
+        "build"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/roslibpy@1.4.0",
       "type": "library",
-      "name": "roslibpy",
-      "version": "1.4.0",
-      "purl": "pkg:pypi/roslibpy@1.4.0",
+      "name": "beautifulsoup4",
+      "version": "4.12.2",
+      "purl": "pkg:pypi/beautifulsoup4@4.12.2",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "lxml",
+        "html5lib",
+        "soupsieve"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/incremental@24.7.2",
-      "type": "library",
-      "name": "incremental",
-      "version": "24.7.2",
-      "purl": "pkg:pypi/incremental@24.7.2",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/packaging@24.2",
       "type": "library",
       "name": "packaging",
-      "version": "24.2",
-      "purl": "pkg:pypi/packaging@24.2",
+      "version": "25.0",
+      "purl": "pkg:pypi/packaging@25.0",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/urllib3@2.4.0",
       "type": "library",
       "name": "urllib3",
       "version": "2.4.0",
@@ -413,23 +602,16 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "zstandard",
+        "h2",
+        "pysocks",
+        "brotli",
+        "brotlicffi"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/pycparser@2.22",
-      "type": "library",
-      "name": "pycparser",
-      "version": "2.22",
-      "purl": "pkg:pypi/pycparser@2.22",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/jinja2@3.1.6",
       "type": "library",
       "name": "jinja2",
       "version": "3.1.6",
@@ -439,10 +621,13 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "babel",
+        "markupsafe"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/wheel@0.45.1",
       "type": "library",
       "name": "wheel",
       "version": "0.45.1",
@@ -452,10 +637,82 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "setuptools",
+        "sphinxcontrib-towncrier",
+        "pip",
+        "paver",
+        "pytest-virtualenv",
+        "rst-linker",
+        "jaraco-tidelift",
+        "sphinx-inline-tabs",
+        "pytest",
+        "flake8-2020",
+        "jaraco-envs",
+        "furo",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "mock",
+        "wheel",
+        "jaraco-packaging",
+        "virtualenv",
+        "sphinx",
+        "pytest-xdist",
+        "pytest-black",
+        "pytest-enabler",
+        "pytest-mypy",
+        "pygments-github-lexers",
+        "pytest-cov",
+        "jaraco-path"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/flask@2.2.5",
+      "type": "library",
+      "name": "aiohttp",
+      "version": "3.9.1",
+      "purl": "pkg:pypi/aiohttp@3.9.1",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": [
+        "cogapp",
+        "ruff",
+        "aiosignal",
+        "propcache",
+        "aiodns",
+        "flake8",
+        "sphinxcontrib-towncrier",
+        "pytest-codspeed",
+        "hypothesis",
+        "typing-extensions",
+        "pympler",
+        "sphinx-notfound-page",
+        "multidict",
+        "pytest",
+        "brotlicffi",
+        "towncrier",
+        "cloudpickle",
+        "coverage",
+        "furo",
+        "sphinx",
+        "mypy",
+        "frozenlist",
+        "myst-parser",
+        "async-timeout",
+        "attrs",
+        "pytest-xdist",
+        "idna",
+        "brotli",
+        "pytest-mypy-plugins",
+        "yarl",
+        "pre-commit-uv"
+      ]
+    },
+    {
       "type": "library",
       "name": "flask",
       "version": "2.2.5",
@@ -465,23 +722,81 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "asgiref",
+        "click",
+        "babel",
+        "markupsafe",
+        "watchdog",
+        "python-dotenv",
+        "werkzeug",
+        "jinja2",
+        "colorama",
+        "importlib-metadata",
+        "itsdangerous"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/setuptools@80.3.1",
       "type": "library",
-      "name": "setuptools",
-      "version": "80.3.1",
-      "purl": "pkg:pypi/setuptools@80.3.1",
+      "name": "pandas",
+      "version": "2.2.0",
+      "purl": "pkg:pypi/pandas@2.2.0",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "gcsfs",
+        "pymysql",
+        "adbc-driver-sqlite",
+        "python-calamine",
+        "tables",
+        "matplotlib",
+        "hypothesis",
+        "xlrd",
+        "bottleneck",
+        "html5lib",
+        "openpyxl",
+        "qtpy",
+        "fsspec",
+        "sqlalchemy",
+        "psycopg2",
+        "adbc-driver-postgresql",
+        "tzdata",
+        "numpy",
+        "scipy",
+        "pytz",
+        "six",
+        "lxml",
+        "zstandard",
+        "pyarrow",
+        "odfpy",
+        "numexpr",
+        "pytest",
+        "python-dateutil",
+        "tabulate",
+        "fastparquet",
+        "dataframe-api-compat",
+        "pandas-gbq",
+        "pyreadstat",
+        "pyxlsb",
+        "xlsxwriter",
+        "pyqt5",
+        "beautifulsoup4",
+        "numba",
+        "pytest-xdist",
+        "babel",
+        "markupsafe",
+        "s3fs",
+        "xarray",
+        "jinja2",
+        "soupsieve"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/distro@1.9.0",
       "type": "library",
       "name": "distro",
       "version": "1.9.0",
@@ -491,23 +806,38 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/automat@25.4.16",
       "type": "library",
-      "name": "automat",
-      "version": "25.4.16",
-      "purl": "pkg:pypi/automat@25.4.16",
+      "name": "propcache",
+      "version": "0.3.1",
+      "purl": "pkg:pypi/propcache@0.3.1",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": []
+    },
+    {
+      "type": "library",
+      "name": "aiosignal",
+      "version": "1.3.2",
+      "purl": "pkg:pypi/aiosignal@1.3.2",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": [
+        "frozenlist"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/docutils@0.21.2",
       "type": "library",
       "name": "docutils",
       "version": "0.21.2",
@@ -517,10 +847,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/pyyaml@6.0.2",
       "type": "library",
       "name": "pyyaml",
       "version": "6.0.2",
@@ -530,23 +860,66 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/importlib_metadata@8.0.0",
       "type": "library",
       "name": "importlib_metadata",
-      "version": "8.0.0",
-      "purl": "pkg:pypi/importlib_metadata@8.0.0",
+      "version": "8.7.0",
+      "purl": "pkg:pypi/importlib_metadata@8.7.0",
       "properties": [
         {
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "pytest-perf",
+        "pytest-ignore-flaky",
+        "pyfakefs",
+        "jaraco-functools",
+        "ipython",
+        "packaging",
+        "typing-extensions",
+        "rst-linker",
+        "more-itertools",
+        "jaraco-tidelift",
+        "importlib_resources",
+        "pytest",
+        "jaraco-test",
+        "pytest-ruff",
+        "flufl-flake8",
+        "importlib-resources",
+        "big-o",
+        "furo",
+        "sphinx-lint",
+        "pytest-checkdocs",
+        "jaraco-packaging",
+        "sphinx",
+        "jaraco-itertools",
+        "pytest-enabler",
+        "pytest-mypy",
+        "zipp",
+        "pytest-cov"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/pydantic@1.10.13",
+      "type": "library",
+      "name": "multidict",
+      "version": "6.4.3",
+      "purl": "pkg:pypi/multidict@6.4.3",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": [
+        "typing-extensions"
+      ]
+    },
+    {
       "type": "library",
       "name": "pydantic",
       "version": "1.10.13",
@@ -556,10 +929,14 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "typing-extensions",
+        "email-validator",
+        "python-dotenv"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/pyproject_hooks@1.2.0",
       "type": "library",
       "name": "pyproject_hooks",
       "version": "1.2.0",
@@ -569,10 +946,50 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": []
+    },
+    {
+      "type": "library",
+      "name": "setuptools",
+      "version": "58.0.4",
+      "purl": "pkg:pypi/setuptools@58.0.4",
+      "properties": [
+        {
+          "name": "source",
+          "value": "importlib.metadata"
+        }
+      ],
+      "dependencies": [
+        "setuptools",
+        "sphinxcontrib-towncrier",
+        "pip",
+        "paver",
+        "rst-linker",
+        "pytest-virtualenv",
+        "jaraco-tidelift",
+        "sphinx-inline-tabs",
+        "pytest",
+        "flake8-2020",
+        "jaraco-envs",
+        "furo",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "jaraco-packaging",
+        "mock",
+        "sphinx",
+        "virtualenv",
+        "wheel",
+        "pytest-xdist",
+        "pytest-black",
+        "pytest-enabler",
+        "pytest-mypy",
+        "pygments-github-lexers",
+        "pytest-cov",
+        "jaraco-path"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/six@1.17.0",
       "type": "library",
       "name": "six",
       "version": "1.17.0",
@@ -582,10 +999,10 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/rospkg@1.5.0",
       "type": "library",
       "name": "rospkg",
       "version": "1.5.0",
@@ -595,10 +1012,57 @@
           "name": "source",
           "value": "importlib.metadata"
         }
+      ],
+      "dependencies": [
+        "flake8-deprecated",
+        "flake8-blind-except",
+        "pip",
+        "paver",
+        "pytest-virtualenv",
+        "catkin-pkg",
+        "jaraco-tidelift",
+        "docutils",
+        "furo",
+        "pytest-flake8",
+        "pytest-checkdocs",
+        "mock",
+        "wheel",
+        "distro",
+        "pygments-github-lexers",
+        "pytest-mypy",
+        "railroad-diagrams",
+        "pytest-cov",
+        "jaraco-path",
+        "flake8-class-newline",
+        "six",
+        "setuptools",
+        "pyparsing",
+        "flake8",
+        "pyyaml",
+        "sphinxcontrib-towncrier",
+        "rst-linker",
+        "flake8-import-order",
+        "sphinx-inline-tabs",
+        "pytest",
+        "python-dateutil",
+        "flake8-2020",
+        "jaraco-envs",
+        "flake8-comprehensions",
+        "jaraco-packaging",
+        "virtualenv",
+        "sphinx",
+        "pytest-xdist",
+        "pytest-black",
+        "flake8-quotes",
+        "babel",
+        "pytest-enabler",
+        "markupsafe",
+        "flake8-builtins",
+        "flake8-docstrings",
+        "jinja2"
       ]
     },
     {
-      "bom-ref": "pkg:pypi/markupsafe@3.0.2",
       "type": "library",
       "name": "markupsafe",
       "version": "3.0.2",
@@ -608,688 +1072,47 @@
           "name": "source",
           "value": "importlib.metadata"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/jaraco.text@3.12.1",
       "type": "library",
-      "name": "jaraco.text",
-      "version": "3.12.1",
-      "purl": "pkg:pypi/jaraco.text@3.12.1",
+      "name": "colorama",
+      "version": "0.4.6",
+      "purl": "pkg:pypi/colorama@0.4.6",
       "properties": [
         {
           "name": "source",
-          "value": "importlib.metadata"
+          "value": "poetry"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/jaraco.collections@5.1.0",
       "type": "library",
-      "name": "jaraco.collections",
-      "version": "5.1.0",
-      "purl": "pkg:pypi/jaraco.collections@5.1.0",
+      "name": "importlib-metadata",
+      "version": "8.7.0",
+      "purl": "pkg:pypi/importlib-metadata@8.7.0",
       "properties": [
         {
           "name": "source",
-          "value": "importlib.metadata"
+          "value": "poetry"
         }
-      ]
+      ],
+      "dependencies": []
     },
     {
-      "bom-ref": "pkg:pypi/jaraco.functools@4.0.1",
       "type": "library",
-      "name": "jaraco.functools",
-      "version": "4.0.1",
-      "purl": "pkg:pypi/jaraco.functools@4.0.1",
+      "name": "typing-extensions",
+      "version": "4.13.2",
+      "purl": "pkg:pypi/typing-extensions@4.13.2",
       "properties": [
         {
           "name": "source",
-          "value": "importlib.metadata"
+          "value": "poetry"
         }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/jaraco.context@5.3.0",
-      "type": "library",
-      "name": "jaraco.context",
-      "version": "5.3.0",
-      "purl": "pkg:pypi/jaraco.context@5.3.0",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/inflect@7.3.1",
-      "type": "library",
-      "name": "inflect",
-      "version": "7.3.1",
-      "purl": "pkg:pypi/inflect@7.3.1",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/autocommand@2.2.2",
-      "type": "library",
-      "name": "autocommand",
-      "version": "2.2.2",
-      "purl": "pkg:pypi/autocommand@2.2.2",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/backports.tarfile@1.2.0",
-      "type": "library",
-      "name": "backports.tarfile",
-      "version": "1.2.0",
-      "purl": "pkg:pypi/backports.tarfile@1.2.0",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/typeguard@4.3.0",
-      "type": "library",
-      "name": "typeguard",
-      "version": "4.3.0",
-      "purl": "pkg:pypi/typeguard@4.3.0",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/more-itertools@10.3.0",
-      "type": "library",
-      "name": "more-itertools",
-      "version": "10.3.0",
-      "purl": "pkg:pypi/more-itertools@10.3.0",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:pypi/platformdirs@4.2.2",
-      "type": "library",
-      "name": "platformdirs",
-      "version": "4.2.2",
-      "purl": "pkg:pypi/platformdirs@4.2.2",
-      "properties": [
-        {
-          "name": "source",
-          "value": "importlib.metadata"
-        }
-      ]
-    }
-  ],
-  "dependencies": [
-    {
-      "ref": "pkg:pypi/benchmark-python-ros-1@0.1.0",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:pypi/cryptography@44.0.3",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/pip-tools@7.4.1",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/autobahn@24.4.2",
-      "dependsOn": [
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/automat@25.4.16",
-        "pkg:pypi/txaio@23.1.1",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/constantly@23.10.4",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/cryptography@44.0.3",
-        "pkg:pypi/twisted@24.11.0",
-        "pkg:pypi/markupsafe@3.0.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/attrs@25.3.0",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/hyperlink@21.0.0",
-        "pkg:pypi/pyyaml@6.0.2",
-        "pkg:pypi/typing_extensions@4.12.2",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/zope.interface@7.2",
-        "pkg:pypi/incremental@24.7.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/zope.interface@7.2",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/zipp@3.19.2",
-      "dependsOn": [
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/catkin-pkg@0.5.2",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/docutils@0.21.2",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/python-dateutil@2.9.0.post0",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/pyparsing@3.2.3",
-        "pkg:pypi/markupsafe@3.0.2",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/six@1.17.0",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/pyparsing@3.2.3",
-      "dependsOn": [
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/markupsafe@3.0.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/hyperlink@21.0.0",
-      "dependsOn": [
-        "pkg:pypi/idna@3.10"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/twisted@24.11.0",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/attrs@25.3.0",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/automat@25.4.16",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/constantly@23.10.4",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/hyperlink@21.0.0",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/cryptography@44.0.3",
-        "pkg:pypi/typing_extensions@4.12.2",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/twisted@24.11.0",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/incremental@24.7.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/txaio@23.1.1",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/attrs@25.3.0",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/automat@25.4.16",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/constantly@23.10.4",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/hyperlink@21.0.0",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/cryptography@44.0.3",
-        "pkg:pypi/typing_extensions@4.12.2",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/twisted@24.11.0",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/zope.interface@7.2",
-        "pkg:pypi/incremental@24.7.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/cffi@1.17.1",
-      "dependsOn": [
-        "pkg:pypi/pycparser@2.22"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/werkzeug@3.1.3",
-      "dependsOn": [
-        "pkg:pypi/markupsafe@3.0.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/requests@2.31.0",
-      "dependsOn": [
-        "pkg:pypi/urllib3@2.4.0",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/charset-normalizer@3.4.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/python-dateutil@2.9.0.post0",
-      "dependsOn": [
-        "pkg:pypi/six@1.17.0"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/build@1.2.2.post1",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/roslibpy@1.4.0",
-      "dependsOn": [
-        "pkg:pypi/autobahn@24.4.2",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/automat@25.4.16",
-        "pkg:pypi/txaio@23.1.1",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/constantly@23.10.4",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/cryptography@44.0.3",
-        "pkg:pypi/twisted@24.11.0",
-        "pkg:pypi/markupsafe@3.0.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/attrs@25.3.0",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/hyperlink@21.0.0",
-        "pkg:pypi/pyyaml@6.0.2",
-        "pkg:pypi/typing_extensions@4.12.2",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/zope.interface@7.2",
-        "pkg:pypi/incremental@24.7.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/incremental@24.7.2",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/jinja2@3.1.6",
-      "dependsOn": [
-        "pkg:pypi/markupsafe@3.0.2"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/wheel@0.45.1",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/flask@2.2.5",
-      "dependsOn": [
-        "pkg:pypi/itsdangerous@2.2.0",
-        "pkg:pypi/werkzeug@3.1.3",
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/markupsafe@3.0.2",
-        "pkg:pypi/click@8.1.8"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/setuptools@80.3.1",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/automat@25.4.16",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/attrs@25.3.0",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/certifi@2025.4.26",
-        "pkg:pypi/click@8.1.8",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/automat@25.4.16",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/idna@3.10",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/constantly@23.10.4",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/pycparser@2.22",
-        "pkg:pypi/jaraco.functools@4.0.1",
-        "pkg:pypi/hyperlink@21.0.0",
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/cryptography@44.0.3",
-        "pkg:pypi/typing_extensions@4.12.2",
-        "pkg:pypi/cffi@1.17.1",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/twisted@24.11.0",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/incremental@24.7.2",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/importlib_metadata@8.0.0",
-      "dependsOn": [
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/rospkg@1.5.0",
-      "dependsOn": [
-        "pkg:pypi/pyproject_hooks@1.2.0",
-        "pkg:pypi/docutils@0.21.2",
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/pyyaml@6.0.2",
-        "pkg:pypi/importlib_metadata@8.0.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/build@1.2.2.post1",
-        "pkg:pypi/python-dateutil@2.9.0.post0",
-        "pkg:pypi/tomli@2.0.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/zipp@3.19.2",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/pip@25.1.1",
-        "pkg:pypi/pyparsing@3.2.3",
-        "pkg:pypi/catkin-pkg@0.5.2",
-        "pkg:pypi/markupsafe@3.0.2",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/wheel@0.45.1",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/distro@1.9.0",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/six@1.17.0",
-        "pkg:pypi/platformdirs@4.2.2",
-        "pkg:pypi/jinja2@3.1.6",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/setuptools@80.3.1",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/jaraco.text@3.12.1",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/jaraco.collections@5.1.0",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0",
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/jaraco.context@5.3.0",
-        "pkg:pypi/jaraco.text@3.12.1",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/inflect@7.3.1",
-        "pkg:pypi/autocommand@2.2.2",
-        "pkg:pypi/typeguard@4.3.0",
-        "pkg:pypi/jaraco.functools@4.0.1"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/jaraco.functools@4.0.1",
-      "dependsOn": [
-        "pkg:pypi/more-itertools@10.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/jaraco.context@5.3.0",
-      "dependsOn": [
-        "pkg:pypi/backports.tarfile@1.2.0"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/inflect@7.3.1",
-      "dependsOn": [
-        "pkg:pypi/packaging@24.2",
-        "pkg:pypi/more-itertools@10.3.0",
-        "pkg:pypi/typeguard@4.3.0"
-      ]
-    },
-    {
-      "ref": "pkg:pypi/typeguard@4.3.0",
-      "dependsOn": [
-        "pkg:pypi/packaging@24.2"
-      ]
+      ],
+      "dependencies": []
     }
   ]
 }
