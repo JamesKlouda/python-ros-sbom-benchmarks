@@ -1,17 +1,32 @@
 #!/bin/bash
 
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
+# Exit on error
+set -e
+
+# Create virtual environment if it doesn't exist
+if [ ! -d ".venv" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv .venv
+fi
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Run poetry lock
+echo "Running poetry lock..."
+poetry lock
 
 # Install pip-tools
 pip install pip-tools
 
+# Compile requirements.txt from requirements.in
+pip-compile requirements.in
+
 # Install dependencies
-pip install -r requirements.in
+pip install -r requirements.txt
 
-# Generate requirements.txt
-pip-compile requirements.in > requirements.txt
+# Run the benchmark
+python main.py
 
-# Run the main script
-python main.py 
+# Deactivate virtual environment
+deactivate 
