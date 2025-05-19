@@ -1,27 +1,58 @@
 #!/usr/bin/env python3
 
-import rospkg
-from catkin_pkg.package import parse_package
-import requests
-from flask import Flask, jsonify
-from pydantic import BaseModel
+import os
+import sys
 import json
+import rospkg
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
 from importlib.metadata import distributions
 import subprocess
-import pkg_resources
-from pip._vendor.packaging.requirements import Requirement
-from pip._vendor.packaging.specifiers import SpecifierSet
 import toml
-from pathlib import Path
 import uuid
-from datetime import datetime
+from pip._vendor.packaging.requirements import Requirement
 
-class RobotState(BaseModel):
-    position: float
-    velocity: float
-    status: str
+def check_ros_packages():
+    """Check for available ROS packages."""
+    try:
+        rospack = rospkg.RosPack()
+        packages = rospack.list()
+        print(f"Found {len(packages)} ROS packages:")
+        for pkg in packages:
+            print(f"- {pkg}")
+    except rospkg.ResourceNotFound:
+        print("No ROS packages found (ROS may not be installed)")
 
-app = Flask(__name__)
+def make_http_request():
+    """Make an HTTP request to demonstrate requests library."""
+    try:
+        response = requests.get('https://api.github.com/status')
+        print(f"GitHub API Status: {response.status_code}")
+        return response.status_code == 200
+    except requests.RequestException as e:
+        print(f"Error making HTTP request: {e}")
+        return False
+
+def parse_with_beautifulsoup():
+    """Demonstrate BeautifulSoup parsing."""
+    try:
+        response = requests.get('https://quotes.toscrape.com')
+        soup = BeautifulSoup(response.text, 'html.parser')
+        quotes = soup.find_all('div', class_='quote')
+        print(f"Found {len(quotes)} quotes using BeautifulSoup")
+        return len(quotes) > 0
+    except Exception as e:
+        print(f"Error parsing with BeautifulSoup: {e}")
+        return False
+
+def standardize_package_name(name):
+    """Standardize package name to use hyphens and proper format."""
+    # Convert dots to hyphens
+    name = name.replace('.', '-')
+    # Ensure the name is lowercase
+    name = name.lower()
+    return name
 
 def get_pip_freeze_packages():
     """Get all installed packages using pip freeze."""
@@ -30,7 +61,9 @@ def get_pip_freeze_packages():
     for line in result.stdout.splitlines():
         if '==' in line:
             name, version = line.split('==')
-            packages[name.lower()] = version
+            # Standardize the package name
+            name = standardize_package_name(name)
+            packages[name] = version
     return packages
 
 def get_poetry_dependencies():
@@ -39,12 +72,27 @@ def get_poetry_dependencies():
     try:
         with open('pyproject.toml', 'r') as f:
             pyproject = toml.load(f)
+            # Check for Poetry format
             if 'tool' in pyproject and 'poetry' in pyproject['tool']:
                 poetry = pyproject['tool']['poetry']
                 if 'dependencies' in poetry:
-                    deps.update(poetry['dependencies'])
+                    for name, version in poetry['dependencies'].items():
+                        deps[standardize_package_name(name)] = version
                 if 'dev-dependencies' in poetry:
-                    deps.update(poetry['dev-dependencies'])
+                    for name, version in poetry['dev-dependencies'].items():
+                        deps[standardize_package_name(name)] = version
+            # Check for PEP 621 format
+            elif 'project' in pyproject and 'dependencies' in pyproject['project']:
+                for dep in pyproject['project']['dependencies']:
+                    # Parse the dependency string (e.g., "beautifulsoup4>=4.12.0")
+                    if '>=' in dep:
+                        name, version = dep.split('>=')
+                        deps[standardize_package_name(name.strip())] = version.strip()
+                    elif '==' in dep:
+                        name, version = dep.split('==')
+                        deps[standardize_package_name(name.strip())] = version.strip()
+                    else:
+                        deps[standardize_package_name(dep.strip())] = None
     except FileNotFoundError:
         pass
     
@@ -53,7 +101,7 @@ def get_poetry_dependencies():
             lock = toml.load(f)
             if 'package' in lock:
                 for pkg in lock['package']:
-                    deps[pkg['name']] = pkg['version']
+                    deps[standardize_package_name(pkg['name'])] = pkg['version']
     except FileNotFoundError:
         pass
     
@@ -65,7 +113,7 @@ def get_installed_packages():
     
     # Get packages from importlib.metadata
     for dist in distributions():
-        name = dist.metadata["Name"].lower()
+        name = standardize_package_name(dist.metadata["Name"])
         version = dist.version
         requires = []
         
@@ -75,13 +123,13 @@ def get_installed_packages():
                 try:
                     req_obj = Requirement(req)
                     requires.append({
-                        "name": req_obj.name,
+                        "name": standardize_package_name(req_obj.name),
                         "specifier": str(req_obj.specifier) if req_obj.specifier else None,
                         "marker": str(req_obj.marker) if req_obj.marker else None
                     })
                 except Exception:
                     # If parsing fails, add the raw requirement
-                    requires.append({"name": req, "specifier": None, "marker": None})
+                    requires.append({"name": standardize_package_name(req), "specifier": None, "marker": None})
         
         packages[name] = {
             "version": version,
@@ -148,54 +196,39 @@ def generate_sbom():
     # Read project info from pyproject.toml
     with open('pyproject.toml', 'r') as f:
         pyproject = toml.load(f)
-        project_name = pyproject.get('tool', {}).get('poetry', {}).get('name', 'benchmark-python-ros-1')
-        project_version = pyproject.get('tool', {}).get('poetry', {}).get('version', '0.1.0')
+        project_name = standardize_package_name(pyproject.get('project', {}).get('name', 'benchmark-python-ros-1'))
+        project_version = pyproject.get('project', {}).get('version', '0.1.0')
     
     # Generate a unique serial number
     serial_number = f"urn:uuid:{uuid.uuid4()}"
     
-    # Get current timestamp in ISO 8601 format
-    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    
+    # Create the SBOM structure
     sbom = {
         "bomFormat": "CycloneDX",
-        "specVersion": "1.5",
+        "specVersion": "1.4",
         "serialNumber": serial_number,
         "version": 1,
         "metadata": {
-            "timestamp": timestamp,
-            "tools": {
-                "components": [
-                    {
-                        "bom-ref": "pkg:pypi/pip@25.1.1",
-                        "type": "application",
-                        "name": "pip",
-                        "version": "25.1.1",
-                        "purl": "pkg:pypi/pip@25.1.1"
-                    }
-                ]
-            },
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "tools": [
+                {
+                    "vendor": "Custom",
+                    "name": "Python SBOM Generator",
+                    "version": "1.0.0"
+                }
+            ],
             "component": {
-                "bom-ref": f"pkg:pypi/{project_name}@{project_version}",
                 "type": "application",
                 "name": project_name,
-                "version": project_version,
-                "purl": f"pkg:pypi/{project_name}@{project_version}"
+                "version": project_version
             }
         },
-        "components": [],
-        "dependencies": []
+        "components": []
     }
     
     # Add components
     for name, info in packages.items():
-        # Skip Python as a component since it's not a PyPI package
-        if name.lower() == "python":
-            continue
-        
-        bom_ref = f"pkg:pypi/{name}@{info['version']}"
         component = {
-            "bom-ref": bom_ref,
             "type": "library",
             "name": name,
             "version": info["version"],
@@ -207,74 +240,38 @@ def generate_sbom():
                 }
             ]
         }
+        
+        # Add dependencies
+        if name in transitive_deps:
+            component["dependencies"] = list(transitive_deps[name])
+        
         sbom["components"].append(component)
-    
-    # Find direct dependencies of the main application (from pyproject.toml)
-    direct_deps = []
-    try:
-        with open('pyproject.toml', 'r') as f:
-            pyproject = toml.load(f)
-            poetry = pyproject.get('tool', {}).get('poetry', {})
-            deps = poetry.get('dependencies', {})
-            for dep in deps:
-                dep_name = dep.lower()
-                if dep_name != "python" and dep_name in packages:
-                    direct_deps.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
-    except Exception:
-        pass
-    
-    sbom["dependencies"].append({
-        "ref": f"pkg:pypi/{project_name}@{project_version}",
-        "dependsOn": direct_deps
-    })
-    
-    # Add dependencies including transitive ones (for all other packages)
-    for name, deps in transitive_deps.items():
-        if deps:
-            # Don't duplicate the main application
-            if name == project_name:
-                continue
-            depends_on = []
-            for dep_name in deps:
-                if dep_name in packages and dep_name.lower() != "python":
-                    depends_on.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
-            if depends_on:
-                sbom["dependencies"].append({
-                    "ref": f"pkg:pypi/{name}@{packages[name]['version']}",
-                    "dependsOn": depends_on
-                })
     
     return sbom
 
-@app.route('/status')
-def get_status():
-    """Example endpoint using Flask and Pydantic."""
-    state = RobotState(position=1.0, velocity=0.5, status="running")
-    return jsonify(state.dict())
-
 def main():
-    """Main function demonstrating ROS package handling and HTTP client."""
-    # Example ROS package operations
-    rospack = rospkg.RosPack()
-    try:
-        # Try to get a list of available packages
-        packages = rospack.list()
-        print("Available ROS packages:", packages)
-    except rospkg.ResourceNotFound:
-        print("No ROS packages found in the environment")
+    """Main function to run the benchmark and generate SBOM."""
+    print("Starting benchmark...")
     
-    # Example HTTP request
-    response = requests.get('https://api.github.com')
-    print(f"GitHub API Status: {response.status_code}")
+    # Check ROS packages
+    check_ros_packages()
     
-    # Generate and save SBOM
+    # Make HTTP request
+    make_http_request()
+    
+    # Parse with BeautifulSoup
+    parse_with_beautifulsoup()
+    
+    # Generate SBOM
+    print("Generating SBOM...")
     sbom = generate_sbom()
-    with open('r1-benchmark-sbom.json', 'w') as f:
-        json.dump(sbom, f, indent=2)
-    print("SBOM generated as r1-benchmark-sbom.json")
     
-    # Start Flask server
-    app.run(host='0.0.0.0', port=5001)
+    # Save SBOM to file
+    output_file = "r1-benchmark-sbom.json"
+    with open(output_file, 'w') as f:
+        json.dump(sbom, f, indent=2)
+    
+    print(f"SBOM generated and saved to {output_file}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main() 
