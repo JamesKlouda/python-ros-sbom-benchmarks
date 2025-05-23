@@ -252,15 +252,19 @@ def get_installed_packages():
     return packages
 
 def resolve_transitive_dependencies(packages):
-    """Resolve transitive dependencies for all packages."""
+    """Resolve transitive dependencies for all packages, returning a proper dependency chain."""
     resolved = {}
+    
     def resolve_package(name, visited=None):
         if visited is None:
             visited = set()
+        
         if name in visited:
             return set()
+        
         visited.add(name)
         deps = set()
+        
         if name in packages:
             for req in packages[name]["requires"]:
                 req_name = req["name"].lower()
@@ -268,24 +272,35 @@ def resolve_transitive_dependencies(packages):
                 # Recursively resolve dependencies
                 sub_deps = resolve_package(req_name, visited.copy())
                 deps.update(sub_deps)
+        
         return deps
+    
+    # For each package, only include its direct dependencies
     for name in packages:
-        resolved[name] = resolve_package(name)
+        if name in packages:
+            # Get only direct dependencies from the package's requirements
+            direct_deps = {req["name"].lower() for req in packages[name]["requires"]}
+            resolved[name] = direct_deps
+    
     return resolved
 
 def generate_sbom():
     """Generate a CycloneDX-compliant SBOM."""
     packages = get_installed_packages()
     transitive_deps = resolve_transitive_dependencies(packages)
+    
     # Read project info from pyproject.toml
     with open('pyproject.toml', 'r') as f:
         pyproject = toml.load(f)
         project_name = standardize_package_name(pyproject.get('tool', {}).get('poetry', {}).get('name', 'benchmark-python-ros-2'))
         project_version = pyproject.get('tool', {}).get('poetry', {}).get('version', '0.1.0')
+    
     # Generate a unique serial number
     serial_number = f"urn:uuid:{uuid.uuid4()}"
+    
     # Get current timestamp in ISO 8601 format
     timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    
     sbom = {
         "bomFormat": "CycloneDX",
         "specVersion": "1.5",
@@ -315,11 +330,13 @@ def generate_sbom():
         "components": [],
         "dependencies": []
     }
+    
     # Add components
     for name, info in packages.items():
         # Skip Python as a component since it's not a PyPI package
         if name.lower() == "python":
             continue
+        
         # Remove pkg:pypi/ prefix if present
         clean_name = name.replace('pkg:pypi/', '')
         bom_ref = f"pkg:pypi/{clean_name}@{info['version']}"
@@ -337,6 +354,7 @@ def generate_sbom():
             ]
         }
         sbom["components"].append(component)
+    
     # Find direct dependencies of the main application (from pyproject.toml)
     direct_deps = []
     try:
@@ -360,16 +378,20 @@ def generate_sbom():
                         dep_name = dep.split('==')[0].strip().lower()
                     else:
                         dep_name = dep.strip().lower()
+                    
                     if dep_name != "python" and dep_name in packages:
                         direct_deps.append(f"pkg:pypi/{dep_name}@{packages[dep_name]['version']}")
     except Exception as e:
         print(f"Error reading dependencies: {e}")
         pass
+    
+    # Add root package's direct dependencies
     sbom["dependencies"].append({
         "ref": f"pkg:pypi/{project_name}@{project_version}",
         "dependsOn": direct_deps
     })
-    # Add dependencies including transitive ones (for all other packages)
+    
+    # Add dependencies with proper chains for all other packages
     for name, deps in transitive_deps.items():
         if deps:
             # Don't duplicate the main application
@@ -384,6 +406,7 @@ def generate_sbom():
                     "ref": f"pkg:pypi/{name}@{packages[name]['version']}",
                     "dependsOn": depends_on
                 })
+    
     return sbom
 
 def main():
