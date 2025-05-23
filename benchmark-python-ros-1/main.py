@@ -160,7 +160,7 @@ def get_installed_packages():
     return packages
 
 def resolve_transitive_dependencies(packages):
-    """Resolve transitive dependencies for all packages."""
+    """Resolve transitive dependencies for all packages, returning a proper dependency chain."""
     resolved = {}
     
     def resolve_package(name, visited=None):
@@ -183,8 +183,23 @@ def resolve_transitive_dependencies(packages):
         
         return deps
     
+    # First pass: collect all dependencies for each package
+    all_deps = {}
     for name in packages:
-        resolved[name] = resolve_package(name)
+        all_deps[name] = resolve_package(name)
+    
+    # Second pass: create proper dependency chains
+    for name in packages:
+        if name in all_deps:
+            # Get direct dependencies from the package's requirements
+            direct_deps = {req["name"].lower() for req in packages[name]["requires"]}
+            # For each direct dependency, add its transitive dependencies
+            chain_deps = set()
+            for dep in direct_deps:
+                if dep in all_deps:
+                    chain_deps.add(dep)
+                    chain_deps.update(all_deps[dep])
+            resolved[name] = chain_deps
     
     return resolved
 
@@ -289,12 +304,13 @@ def generate_sbom():
         print(f"Error reading dependencies: {e}")
         pass
     
+    # Add root package's direct dependencies
     sbom["dependencies"].append({
         "ref": f"pkg:pypi/{project_name}@{project_version}",
         "dependsOn": direct_deps
     })
     
-    # Add dependencies including transitive ones (for all other packages)
+    # Add dependencies with proper chains for all other packages
     for name, deps in transitive_deps.items():
         if deps:
             # Don't duplicate the main application

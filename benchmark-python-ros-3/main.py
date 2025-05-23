@@ -322,12 +322,13 @@ def generate_sbom():
         print(f"Error reading dependencies: {e}")
         pass
     
+    # Add root package's direct dependencies
     sbom["dependencies"].append({
         "ref": f"pkg:pypi/{project_name}@{project_version}",
         "dependsOn": direct_deps
     })
     
-    # Add dependencies including transitive ones (for all other packages)
+    # Add dependencies with proper chains for all other packages
     for name, deps in transitive_deps.items():
         if deps:
             # Don't duplicate the main application
